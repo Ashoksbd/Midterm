@@ -227,7 +227,41 @@ if ($auth->isLoggedIn()) {
         </form>
 
 
-        
+        <h2 class="my-4">Current Inventory</h2>
+        <?php if ($shoes->num_rows > 0): ?>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Size</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($shoe = $shoes->fetch_assoc()): ?>
+                        <tr>
+                            <td><?php echo $shoe['id']; ?></td>
+                            <td><?php echo $shoe['product_name']; ?></td>
+                            <td><?php echo $shoe['price']; ?></td>
+                            <td><?php echo $shoe['size']; ?></td>
+                            <td>
+                                <a href="?edit=<?php echo $shoe['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="" method="POST" style="display:inline;">
+                                    <input type="hidden" name="action" value="delete_shoe">
+                                    <input type="hidden" name="id" value="<?php echo $shoe['id']; ?>">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p>No shoes available in the inventory.</p>
+        <?php endif; ?>
+
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
