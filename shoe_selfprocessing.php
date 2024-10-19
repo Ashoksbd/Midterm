@@ -57,6 +57,44 @@ class Auth {
         $stmt->close();
     }
 
+    // Login user
+    public function login($username, $password) {
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+            return true;
+        } else {
+            return false;
+        }
+        $stmt->close();
+    }
+
+    // Check if the user is logged in
+    public function isLoggedIn() {
+        return isset($_SESSION['user_id']);
+    }
+
+    // Logout the user
+    public function logout() {
+        session_unset();
+        session_destroy();
+    }
+}
+
+// Product class for managing shoe products
+class ShoeProduct {
+    private $conn;
+
+    public function __construct($connection) {
+        $this->conn = $connection;
+    }
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
