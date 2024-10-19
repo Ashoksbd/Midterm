@@ -192,6 +192,44 @@ if ($auth->isLoggedIn()) {
 ?>
 
 
+    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoe E-Commerce</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <?php if ($auth->isLoggedIn()): ?>
+        <h1 class="my-4">Shoe Inventory</h1>
+        
+        <form action="" method="POST">
+            <input type="hidden" name="action" value="<?php echo $editShoe ? 'edit_shoe' : 'add_shoe'; ?>">
+            <?php if ($editShoe): ?>
+                <input type="hidden" name="id" value="<?php echo $editShoe['id']; ?>">
+            <?php endif; ?>
+            <div class="form-group">
+                <label for="product_name">Product Name</label>
+                <input type="text" class="form-control" name="product_name" value="<?php echo $editShoe['product_name'] ?? ''; ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" step="0.01" class="form-control" name="price" value="<?php echo $editShoe['price'] ?? ''; ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="size">Size</label>
+                <input type="number" step="1" class="form-control" name="size" value="<?php echo $editShoe['size'] ?? ''; ?>" required>
+            </div>
+            <button type="submit" class="btn btn-primary"><?php echo $editShoe ? 'Update Shoe' : 'Add Shoe'; ?></button>
+        </form>
+
+
+        
+
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
