@@ -262,6 +262,30 @@ if ($auth->isLoggedIn()) {
             <p>No shoes available in the inventory.</p>
         <?php endif; ?>
 
+        <form action="" method="POST" class="mt-4">
+            <input type="hidden" name="logout" value="1">
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+    <?php else: ?>
+        <h1 class="my-4">Login or Register</h1>
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" required>
+            </div>
+            <button type="submit" name="login" class="btn btn-primary">Login</button>
+            <button type="submit" name="register" class="btn btn-secondary">Register</button>
+        </form>
+    <?php endif; ?>
+
+    <?php if ($message): ?>
+        <div class="alert alert-info my-4"><?php echo $message; ?></div>
+    <?php endif; ?>
+</div>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
